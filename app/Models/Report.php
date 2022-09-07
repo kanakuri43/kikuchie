@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     protected $fillable = [
+        'state',
         'work_date',
         'author_id',
         'content',

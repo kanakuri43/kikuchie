@@ -1,17 +1,18 @@
 <?php
 
-$new_mysqli = new mysqli('localhost', 'root', '', 'laraveltest');
+$dsn = 'sqlsrv:server=localhost;database=kikuchie';
+$user = 'sa';
+$password = 'Sapassword1';
+
+$dbh = new PDO($dsn, $user, $password);
 $sql = 'SELECT * FROM employees WHERE state = 0';
 $str = "";
 
-if ($age_data = $new_mysqli->query($sql)) {
-
-    // ②テーブルのデータをoptionタグに整形
-    foreach ($age_data as $row) {
-        $str .= "<option value='" . $row['id'];
-        $str .= "'>" . $row['employee_name'] . "</option>";
-    }
+foreach ($dbh->query($sql) as $row) {
+    $str .= "<option value='" . $row['id'];
+    $str .= "'>" . $row['employee_name'] . "</option>";
 }
+$dbh = null;
 
 ?>
 <!DOCTYPE html>
@@ -37,6 +38,8 @@ if ($age_data = $new_mysqli->query($sql)) {
 
             <form action="{{ route('report.store')}}" method="POST">
                 @csrf
+                <input type="hidden" name="state" value="0"  >
+
                 <p>
                     <label for="work_date">日付</label>
                     <input type="date" name="work_date" value="{{old('work_date')}}" class="form-control" id="work_date">
