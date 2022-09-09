@@ -33,16 +33,16 @@
                 </tr>
                 @foreach ($reports as $report)
                 <tr>
-                    <td>{{ $report->work_date }}</td>
-                    <th><a href="{{ route('report.show',$report->id)}}">詳細</a></th>
-                    <th><a href="{{ route('report.edit',$report->id)}}">編集</a></th>
-                    <th>
+                    <td><a href="{{ route('report.show',$report->id)}}">{{ $report->work_date }}</a></td>
+                    <td><a href="{{ route('report.show',$report->id)}}">詳細</a></td>
+                    <td><a href="{{ route('report.edit',$report->id)}}">編集</a></td>
+                    <td>
                         <form action="{{ route('report.destroy', $report->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="submit" name="" value="削除">
                         </form>
-                    </th>
+                    </td>
                 </tr>
                 @endforeach
             </table>
