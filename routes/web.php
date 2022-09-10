@@ -22,4 +22,8 @@ Route::get('/hello', function () {
 });
 
 Route::resource('/book', 'App\Http\Controllers\BookController');
+
+Route::get('/report/daily', function () {
+    return view('report/daily');
+});
 Route::resource('/report', 'App\Http\Controllers\ReportController');
