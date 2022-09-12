@@ -7,10 +7,11 @@ use App\Models\Report;
 
 class ReportController extends Controller
 {
-    public function daily()
+    // public function daily()
+    public function daily($work_date)
     {
-        $reports = Report::all()->where('work_date', '2022-09-20');
-        return view('report.daily', compact('reports'));
+        $reports = Report::all()->where('work_date', $work_date);
+        return view('report.daily', compact('reports', 'work_date'));
     }
     /**
      * Display a listing of the resource.

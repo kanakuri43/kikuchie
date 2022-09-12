@@ -18,11 +18,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/*
+コントローラーで処理するほどのボリュームがない場合は、
+第２引数にクロージャーを書いて、定義することが可能です。
+*/
 Route::get('/hello', function () {
     return view('hello', ['name' => "Hello World."]);
 });
 
 Route::resource('/book', 'App\Http\Controllers\BookController');
 
-Route::get('/report/daily', [ReportController::class, 'daily']);
+/*
+/report/daily にアクセスされたら
+ReportControllerの dailyメソッドを実行する
+*/
+// Route::get('/report/daily', 'App\Http\Controllers\ReportController@daily');
+Route::get('/report/daily/{work_date}', 'App\Http\Controllers\ReportController@daily');
+
 Route::resource('/report', 'App\Http\Controllers\ReportController');
