@@ -9,8 +9,9 @@ class ReportController extends Controller
 {
     public function daily()
     {
-        $reports = Report::where('work_date', "2022-09")->get();
-        return view('report.index', compact('reports'));
+        // $reports = Report::where('work_date', "2022-09")->get();
+        $reports = Report::all();
+        return view('report.daily', compact('reports'));
     }
     /**
      * Display a listing of the resource.

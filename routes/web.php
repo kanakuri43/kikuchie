@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,5 @@ Route::get('/hello', function () {
 
 Route::resource('/book', 'App\Http\Controllers\BookController');
 
-Route::get('/report/daily', function () {
-    return view('report/daily');
-});
+Route::get('/report/daily', [ReportController::class, 'daily']);
 Route::resource('/report', 'App\Http\Controllers\ReportController');
