@@ -31,8 +31,6 @@
 
 
             <h1>日報</h1>
-            <p><input type="month" class="form-control" id="month"></p>
-            <p><a href="{{ route('report.create') }}" class="text-decoration-none">新規追加</a></p>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
