@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
     // public function daily()
     public function daily($work_date)
     {
-        $reports = Report::all()->where('work_date', $work_date);
+        // $reports = Report::all()->where('work_date', $work_date);
+        $sql = "SELECT "
+             . " * "
+             . "FROM "
+             . " reports "
+             . "WHERE "
+             . " work_date = '" . $work_date . "'" 
+             ;
+        $reports = DB::select($sql);
+        // $reports = Report::all()->where('work_date', $work_date);
         return view('report.daily', compact('reports', 'work_date'));
     }
     /**
@@ -20,7 +30,19 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
+        $sql = "SELECT "
+             . " work_date "
+             . " , MIN(id) id "
+             . "FROM "
+             . " reports "
+             . "WHERE "
+             . " FORMAT(work_date, 'yyyy-MM') = '2022-09'" 
+             . "GROUP BY "
+             . " work_date "
+             . "ORDER BY "
+             . " work_date "
+             ;
+        $reports = DB::select($sql);
         return view('report.index', compact('reports'));
     }
 
