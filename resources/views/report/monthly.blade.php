@@ -45,7 +45,7 @@
                 </tr>
                 @foreach ($reports as $report)
                 <tr>
-                    <td><a href="{{ route('report.show',$report->id)}}">{{ $report->work_date }}</a></td>
+                    <td><a href="{{ route('report.daily',$report->work_date)}}">{{ $report->work_date }}</a></td>
                     <td></td>
                 </tr>
                 @endforeach
