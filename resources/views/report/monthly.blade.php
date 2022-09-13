@@ -12,12 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript">
         window.onload = function() {
-            var today = new Date();
-            today.setDate(today.getDate());
-            var yyyy = today.getFullYear();
-            var mm = ("0" + (today.getMonth() + 1)).slice(-2);
-            var dd = ("0" + today.getDate()).slice(-2);
-            document.getElementById("month").value = yyyy + '-' + mm ;
+            document.getElementById("month").value = location.pathname.slice(-7);
         }
     </script>
 </head>
