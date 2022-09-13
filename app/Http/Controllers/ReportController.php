@@ -33,10 +33,10 @@ class ReportController extends Controller
              . "GROUP BY "
              . " work_date "
              . "ORDER BY "
-             . " work_date "
+             . " work_date DESC"
              ;
         $reports = DB::select($sql);
-        return view('report.index', compact('reports'));
+        return view('report.monthly', compact('reports'));
     }
     /**
      * Display a listing of the resource.

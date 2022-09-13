@@ -30,22 +30,12 @@
             <table class="table">
                 <tr>
                     <th>日付</th>
-                    <th>詳細</th>
-                    <th>編集</th>
-                    <th>削除</th>
+                    <th>担当</th>
                 </tr>
                 @foreach ($reports as $report)
                 <tr>
                     <td><a href="{{ route('report.show',$report->id)}}">{{ $report->work_date }}</a></td>
-                    <td><a href="{{ route('report.show',$report->id)}}">詳細</a></td>
-                    <td><a href="{{ route('report.edit',$report->id)}}">編集</a></td>
-                    <td>
-                        <form action="{{ route('report.destroy', $report->id)}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" name="" value="削除">
-                        </form>
-                    </td>
+                    <td></td>
                 </tr>
                 @endforeach
             </table>
