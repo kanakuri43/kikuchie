@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    // public function daily()
     public function daily($work_date)
     {
-        // $reports = Report::all()->where('work_date', $work_date);
         $sql = "SELECT "
              . " * "
              . "FROM "
@@ -20,8 +18,25 @@ class ReportController extends Controller
              . " work_date = '" . $work_date . "'" 
              ;
         $reports = DB::select($sql);
-        // $reports = Report::all()->where('work_date', $work_date);
         return view('report.daily', compact('reports', 'work_date'));
+    }
+
+    public function monthly($work_month)
+    {
+        $sql = "SELECT "
+             . " work_date "
+             . " , MIN(id) id "
+             . "FROM "
+             . " reports "
+             . "WHERE "
+             . " FORMAT(work_date, 'yyyy-MM') = '" . $work_month . "'" 
+             . "GROUP BY "
+             . " work_date "
+             . "ORDER BY "
+             . " work_date "
+             ;
+        $reports = DB::select($sql);
+        return view('report.index', compact('reports'));
     }
     /**
      * Display a listing of the resource.
@@ -30,19 +45,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $sql = "SELECT "
-             . " work_date "
-             . " , MIN(id) id "
-             . "FROM "
-             . " reports "
-             . "WHERE "
-             . " FORMAT(work_date, 'yyyy-MM') = '2022-09'" 
-             . "GROUP BY "
-             . " work_date "
-             . "ORDER BY "
-             . " work_date "
-             ;
-        $reports = DB::select($sql);
+        $reports = Report::all();
         return view('report.index', compact('reports'));
     }
 

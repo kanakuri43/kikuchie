@@ -35,5 +35,6 @@ ReportControllerの dailyメソッドを実行する
 */
 // Route::get('/report/daily', 'App\Http\Controllers\ReportController@daily');
 Route::get('/report/daily/{work_date}', 'App\Http\Controllers\ReportController@daily');
+Route::get('/report/monthly/{work_month}', 'App\Http\Controllers\ReportController@monthly');
 
 Route::resource('/report', 'App\Http\Controllers\ReportController');
