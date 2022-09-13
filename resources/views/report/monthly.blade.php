@@ -14,19 +14,19 @@
         window.onload = function() {
             document.getElementById("month").value = location.pathname.slice(-7);
         }
+
+        function ex() {
+            window.location.href = location.pathname.slice(0, (location.pathname.length - 7)) + document.getElementById("month").value;
+        }
     </script>
 </head>
-
-
-
 
 <body>
     <div class="container">
         <div class="mx-auto" style="width:400px;">
 
-
             <h1>日報一覧</h1>
-            <p><input type="month" class="form-control" id="month"></p>
+            <p><input type="month" class="form-control" id="month" onChange="ex()"></p>
             <p><a href="{{ route('report.create') }}" class="text-decoration-none">新規追加</a></p>
 
             @if ($message = Session::get('success'))
