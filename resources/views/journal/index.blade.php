@@ -47,9 +47,9 @@
                 </tr>
                 @foreach ($reports as $report)
                 <tr>
-                    <td><a href="{{ route('journal.show',$report->id)}}">{{ $report->work_date }}</a></td>
-                    <td><a href="{{ route('journal.show',$report->id)}}">詳細</a></td>
-                    <td><a href="{{ route('journal.edit',$report->id)}}">編集</a></td>
+                    <td><a href="{{ route('journal.show',$journal->id)}}">{{ $report->work_date }}</a></td>
+                    <td><a href="{{ route('journal.show',$journal->id)}}">詳細</a></td>
+                    <td><a href="{{ route('journal.edit',$journal->id)}}">編集</a></td>
                     <td>
                         <form action="{{ route('journal.destroy', $report->id)}}" method="POST">
                             @csrf

@@ -3,19 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Report;
+use App\Models\Journal;
 use Illuminate\Support\Facades\DB;
 
 class JournalController extends Controller
 {
     public function daily($operation_date)
-    {
+    { 
         $sql = "SELECT "
-             . " * "
-             . "FROM "
-             . " reports "
+             . " h.id header_id "
+             . " , h.operation_date "
+             . " , ISNULL(d.id, 0) id "
+             . " , ISNULL(d.process_id, 0) process_id "
+             . " , ISNULL(p.process_name, '--') process_name "
+             . " , ISNULL(o.employee_id, 0) employee_id  "
+             . " , ISNULL(e.employee_name, '--') employee_name  "
+             . " FROM "
+             . " journal_headers h  "
+             . " LEFT JOIN journal_details d  "
+             . "   ON h.id = d.journal_header_id  "
+             . " LEFT JOIN processes p  "
+             . "   ON d.process_id = p.id  "
+             . " LEFT JOIN operators o  "
+             . "   ON d.id = o.journal_detail_id  "
+             . "   LEFT JOIN employees e "
+             . "   ON o.employee_id = e.id "
              . "WHERE "
-             . " work_date = '" . $operation_date . "'" 
+             . " operation_date = '" .  $operation_date . "'" 
              ;
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));
@@ -45,7 +59,7 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journals = Report::all();
+        $journals = Journal::all();
         return view('journal.index', compact('journals'));
     }
 
@@ -67,7 +81,7 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        Report::create($request->all());
+        Journal::create($request->all());
         return redirect()->route('journal.index')->with('success', '新規登録完了しました');
     }
 
@@ -79,7 +93,7 @@ class JournalController extends Controller
      */
     public function show($id)
     {
-        $report = Report::find($id);
+        $report = Journal::find($id);
         return view('journal.show', compact('report'));
     }
 
@@ -91,7 +105,7 @@ class JournalController extends Controller
      */
     public function edit($id)
     {
-        $report = Report::find($id);
+        $report = Journal::find($id);
         return view('journal.edit', compact('report'));
     }
 
@@ -109,7 +123,7 @@ class JournalController extends Controller
             'author_id' => $request->author_id,
             'content' => $request->content
         ];
-        Report::where('id', $id)->update($update);
+        Journal::where('id', $id)->update($update);
         return back()->with('success', '編集完了しました');
     }
 
@@ -121,7 +135,7 @@ class JournalController extends Controller
      */
     public function destroy($id)
     {
-        Report::where('id', $id)->delete();
+        Journal::where('id', $id)->delete();
         return redirect()->route('journal.index')->with('success', '削除完了しました');
     }
 }
