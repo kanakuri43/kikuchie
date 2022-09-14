@@ -10,24 +10,7 @@ class JournalController extends Controller
 {
     public function daily($operation_date)
     { 
-        $sql = "SELECT "
-             . " h.id header_id "
-             . " , h.operation_date "
-             . " , ISNULL(d.id, 0) id "
-             . " , ISNULL(d.process_id, 0) process_id "
-             . " , ISNULL(p.process_name, '--') process_name "
-             . " , ISNULL(o.employee_id, 0) employee_id  "
-             . " , ISNULL(e.employee_name, '--') employee_name  "
-             . " FROM "
-             . " journal_headers h  "
-             . " LEFT JOIN journal_details d  "
-             . "   ON h.id = d.journal_header_id  "
-             . " LEFT JOIN processes p  "
-             . "   ON d.process_id = p.id  "
-             . " LEFT JOIN operators o  "
-             . "   ON d.id = o.journal_detail_id  "
-             . "   LEFT JOIN employees e "
-             . "   ON o.employee_id = e.id "
+        $sql = "SELECT * FROM uv_daily_journal "
              . "WHERE "
              . " operation_date = '" .  $operation_date . "'" 
              ;
