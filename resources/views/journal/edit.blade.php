@@ -18,18 +18,18 @@
         <div class="mx-auto" style="width:400px;">
 
             <h1>日報編集</h1>
-            <p><a href="{{ route('report.index')}}" class="text-decoration-none">一覧画面</a></p>
+            <p><a href="{{ route('journal.index')}}" class="text-decoration-none">一覧画面</a></p>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
             @endif
 
-            <form action="{{ route('report.update',$report->id)}}" method="POST">
+            <form action="{{ route('journal.update',$report->id)}}" method="POST">
                 @csrf
                 @method('PUT')
-                <p>日付：<input type="date" name="title" value="{{ $report->work_date }}" class="form-control"></p>
-                <p>作成者：<input type="text" name="author" value="{{ $report->author_id }}" class="form-control"></p>
-                <p>内容：<input type="text" name="author" value="{{ $report->content }}" class="form-control"></p>
+                <p>日付：<input type="date" name="title" value="{{ $journal->work_date }}" class="form-control"></p>
+                <p>作成者：<input type="text" name="author" value="{{ $journal->author_id }}" class="form-control"></p>
+                <p>内容：<input type="text" name="author" value="{{ $journal->content }}" class="form-control"></p>
                 <input type="submit" value="編集する">
             </form>
         </div>

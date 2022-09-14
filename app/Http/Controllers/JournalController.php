@@ -6,22 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\Report;
 use Illuminate\Support\Facades\DB;
 
-class ReportController extends Controller
+class JournalController extends Controller
 {
-    public function daily($work_date)
+    public function daily($operation_date)
     {
         $sql = "SELECT "
              . " * "
              . "FROM "
              . " reports "
              . "WHERE "
-             . " work_date = '" . $work_date . "'" 
+             . " work_date = '" . $operation_date . "'" 
              ;
-        $reports = DB::select($sql);
-        return view('report.daily', compact('reports', 'work_date'));
+        $journals = DB::select($sql);
+        return view('journal.daily', compact('journals', 'operation_date'));
     }
 
-    public function monthly($work_month)
+    public function monthly($operation_month)
     {
         $sql = "SELECT "
              . " operation_date "
@@ -29,14 +29,14 @@ class ReportController extends Controller
              . "FROM "
              . " journal_headers "
              . "WHERE "
-             . " FORMAT(operation_date, 'yyyy-MM') = '" . $work_month . "'" 
+             . " FORMAT(operation_date, 'yyyy-MM') = '" . $operation_month . "'" 
              . "GROUP BY "
              . " operation_date "
              . "ORDER BY "
              . " operation_date "
              ;
         $journals = DB::select($sql);
-        return view('report.monthly', compact('journals'));
+        return view('journal.monthly', compact('journals'));
     }
     /**
      * Display a listing of the resource.
@@ -45,8 +45,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = Report::all();
-        return view('report.index', compact('reports'));
+        $journals = Report::all();
+        return view('journal.index', compact('journals'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('report.create');
+        return view('journal.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         Report::create($request->all());
-        return redirect()->route('report.index')->with('success', '新規登録完了しました');
+        return redirect()->route('journal.index')->with('success', '新規登録完了しました');
     }
 
     /**
@@ -80,7 +80,7 @@ class ReportController extends Controller
     public function show($id)
     {
         $report = Report::find($id);
-        return view('report.show', compact('report'));
+        return view('journal.show', compact('report'));
     }
 
     /**
@@ -92,7 +92,7 @@ class ReportController extends Controller
     public function edit($id)
     {
         $report = Report::find($id);
-        return view('report.edit', compact('report'));
+        return view('journal.edit', compact('report'));
     }
 
     /**
@@ -122,6 +122,6 @@ class ReportController extends Controller
     public function destroy($id)
     {
         Report::where('id', $id)->delete();
-        return redirect()->route('report.index')->with('success', '削除完了しました');
+        return redirect()->route('journal.index')->with('success', '削除完了しました');
     }
 }

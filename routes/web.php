@@ -33,7 +33,7 @@ Route::resource('/book', 'App\Http\Controllers\BookController');
 /report/daily にアクセスされたら
 ReportControllerの dailyメソッドを実行する
 */
-Route::get('/report/daily/{work_date}', 'App\Http\Controllers\ReportController@daily')->name('report.daily');;
-Route::get('/report/monthly/{work_month}', 'App\Http\Controllers\ReportController@monthly')->name('report.monthly');;
+Route::get('/journal/daily/{work_date}', 'App\Http\Controllers\JournalController@daily')->name('journal.daily');;
+Route::get('/journal/monthly/{work_month}', 'App\Http\Controllers\JournalController@monthly')->name('journal.monthly');;
 
-Route::resource('/report', 'App\Http\Controllers\ReportController');
+Route::resource('/journal', 'App\Http\Controllers\JournalController');

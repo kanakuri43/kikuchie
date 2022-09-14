@@ -18,7 +18,7 @@
 
 
             <h1>{{ $work_date }} 日報</h1>
-            <p><a href="{{ route('report.index')}}" class="text-decoration-none">一覧画面</a></p>
+            <p><a href="{{ route('journal.index')}}" class="text-decoration-none">一覧画面</a></p>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
@@ -31,7 +31,7 @@
                 </tr>
                 @foreach ($reports as $report)
                 <tr>
-                    <td><a href="{{ route('report.show',$report->id)}}">{{ $report->work_date }}</a></td>
+                    <td><a href="{{ route('journal.show',$report->id)}}">{{ $report->work_date }}</a></td>
                     <td></td>
                 </tr>
                 @endforeach
