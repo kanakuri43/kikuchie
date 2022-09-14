@@ -24,19 +24,19 @@ class ReportController extends Controller
     public function monthly($work_month)
     {
         $sql = "SELECT "
-             . " work_date "
+             . " operation_date "
              . " , MIN(id) id "
              . "FROM "
-             . " reports "
+             . " journal_headers "
              . "WHERE "
-             . " FORMAT(work_date, 'yyyy-MM') = '" . $work_month . "'" 
+             . " FORMAT(operation_date, 'yyyy-MM') = '" . $work_month . "'" 
              . "GROUP BY "
-             . " work_date "
+             . " operation_date "
              . "ORDER BY "
-             . " work_date "
+             . " operation_date "
              ;
-        $reports = DB::select($sql);
-        return view('report.monthly', compact('reports'));
+        $journals = DB::select($sql);
+        return view('report.monthly', compact('journals'));
     }
     /**
      * Display a listing of the resource.

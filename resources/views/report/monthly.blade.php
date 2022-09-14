@@ -38,9 +38,9 @@
                     <th>日付</th>
                     <th>天気</th>
                 </tr>
-                @foreach ($reports as $report)
+                @foreach ($journals as $journal)
                 <tr>
-                    <td><a href="{{ route('report.daily',$report->work_date)}}">{{ $report->work_date }}</a></td>
+                    <td><a href="{{ route('report.daily',$journal->operation_date)}}">{{ $journal->operation_date }}</a></td>
                     <td></td>
                 </tr>
                 @endforeach
