@@ -26,12 +26,15 @@
 
             <table class="table">
                 <tr>
-                    <th>日付</th>
+                    <th>作業</th>
+                    <th>時間(h)</th>
                     <th>担当</th>
                 </tr>
                 @foreach ($journals as $journal)
                 <tr>
-                    <td><a href="{{ route('journal.show',$journal->id)}}">{{ $journal->operation_date }}</a></td>
+                    <td><a href="{{ route('journal.show',$journal->id)}}">{{ $journal->process_name }}</a></td>
+                    <td align="center">{{ $journal->operation_hours }}</td>
+                    <td>{{ $journal->employee_name }}</td>
                     <td></td>
                 </tr>
                 @endforeach

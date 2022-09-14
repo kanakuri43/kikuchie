@@ -10,9 +10,20 @@ class JournalController extends Controller
 {
     public function daily($operation_date)
     { 
-        $sql = "SELECT * FROM uv_daily_journal "
+        $sql = "SELECT "
+             . " process_name "
+             . " , MIN(operation_hours) operation_hours  "
+             . " , MIN(employee_name) employee_name "
+             . " , MIN(id) id "
+             . "FROM "
+             . " uv_daily_journal  "
              . "WHERE "
-             . " operation_date = '" .  $operation_date . "'" 
+             . " operation_date = '" .  $operation_date . "' " 
+             . "GROUP BY "
+             . " process_name "
+             . "ORDER BY "
+             . " MIN(id) "
+      
              ;
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));
