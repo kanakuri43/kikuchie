@@ -44,8 +44,7 @@ $dbh = null;
         <div class="mx-auto" style="width:400px;">
 
             <h1>新規作成</h1>
-            <p><a href="{{ route('journal.index')}}" class="text-decoration-none">一覧画面</a></p>
-
+            <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
             <form action="{{ route('journal.store')}}" method="POST">
                 @csrf
                 <input type="hidden" name="state" value="0">
