@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\JournalHeader;
 use App\Models\JournalDetail;
 use App\Models\Employee;
+use App\Models\Operator;
 use App\Models\Process;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\MockObject\Rule\Parameters;
@@ -82,8 +83,10 @@ class JournalController extends Controller
     {
         $data = JournalHeader::create($request->only(['state','operation_date', 'author_id']));
         $request->merge(['journal_header_id' => $data->id]);
-        JournalDetail::create($request->only(['state','journal_header_id', 'process_id', 'operation_hours']));
-        // return redirect()->route('journal.index')->with('success', '新規登録完了しました');
+        $data = JournalDetail::create($request->only(['state','journal_header_id', 'process_id', 'operation_hours']));
+        $request->merge(['journal_detail_id' => $data->id]);
+        Operator::create($request->only(['state','journal_detail_id', 'employee_id']));
+        return redirect()->route('journal.monthly', date('Y-m'))->with('success', '新規登録完了しました');        
     }
 
     /**
