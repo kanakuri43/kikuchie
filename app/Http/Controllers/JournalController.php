@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Journal;
 use App\Models\Employee;
+use App\Models\Process;
 use Illuminate\Support\Facades\DB;
 
 class JournalController extends Controller
@@ -66,7 +67,8 @@ class JournalController extends Controller
     public function create()
     {
         $employees = Employee::all()->where('state', '0');
-        return view('journal.create', compact('employees'));
+        $processes = Process::all()->where('state', '0');
+        return view('journal.create', compact('employees'), compact('processes'));
     }
 
     /**

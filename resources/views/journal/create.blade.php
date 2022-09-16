@@ -13,13 +13,6 @@ foreach ($dbh->query($sql) as $row) {
     $employee .= "'>" . $row['employee_name'] . "</option>";
 }
 
-$sql = 'SELECT * FROM processes WHERE state = 0';
-$process = "";
-foreach ($dbh->query($sql) as $row) {
-    $process .= "<option value='" . $row['id'];
-    $process .= "'>" . $row['process_name'] . "</option>";
-}
-
 
 
 $dbh = null;
@@ -73,9 +66,12 @@ $dbh = null;
                 </p>
                 <p>
                     <label for="content">作業</label>
-                    <select class="form-select" name="process_id" value="{{old('process_id')}}" id="process_id">
-                        <?php echo $process; ?>
+                    <select class="form-select" name="process_id">
+                        @foreach($processes as $process)
+                        <option value="{{ $process->id }}"> {{ $process->process_name }}</option>
+                        @endforeach
                     </select>
+
                 </p>
                 <p>
                     <label for="author_id">担当</label>
