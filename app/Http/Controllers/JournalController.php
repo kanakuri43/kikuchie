@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JournalHeader;
+use App\Models\JournalDetail;
 use App\Models\Employee;
 use App\Models\Process;
 use Illuminate\Support\Facades\DB;
@@ -79,10 +80,10 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        // JournalHeader::create($request->all());
+        $data = JournalHeader::create($request->only(['state','operation_date', 'author_id']));
+        $request->merge(['journal_header_id' => $data->id]);
+        JournalDetail::create($request->only(['state','journal_header_id', 'process_id', 'operation_hours']));
         // return redirect()->route('journal.index')->with('success', '新規登録完了しました');
-        JournalHeader::create($request->only(['state','operation_date', 'author_id']));
-        return redirect()->route('journal.index')->with('success', '新規登録完了しました');
     }
 
     /**
