@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Journal;
+use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 
 class JournalController extends Controller
@@ -64,7 +65,8 @@ class JournalController extends Controller
      */
     public function create()
     {
-        return view('journal.create');
+        $employees = Employee::all()->where('state', '0');
+        return view('journal.create', compact('employees'));
     }
 
     /**
@@ -77,6 +79,7 @@ class JournalController extends Controller
     {
         Journal::create($request->all());
         return redirect()->route('journal.index')->with('success', '新規登録完了しました');
+
     }
 
     /**
