@@ -75,14 +75,16 @@ $dbh = null;
                 </p>
                 <p>
                     <label for="author_id">担当</label>
-                    <select class="form-select" name="operator_id" value="{{old('operator_id')}}" id="operator_id" multiple>
-                        <?php echo $employee; ?>
+                    <select class="form-select" name="operator_id" value="{{old('operator_id')}}" id="operator_id" multiple>>
+                        @foreach($employees as $employee)
+                        <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endforeach
                     </select>
                 </p>
 
                 <p>
                     <label for="work_time">作業時間</label>
-                    <input type="number" min="0" max="24" name="work_time" value="{{old('work_time')}}" class="form-control" id="work_time">
+                    <input type="number" min="0" max="24" name="work_time" value="{{old('work_time')}}" class="form-control" id="work_time" step="0.5">
                 </p>
                 <div class="button">
                     <input type="submit" value="登録する" class="btn btn-primary btn-lg">
