@@ -1,23 +1,3 @@
-<?php
-
-$dsn = 'sqlsrv:server=localhost;database=kikuchie';
-$user = 'sa';
-$password = 'Sapassword1';
-
-$dbh = new PDO($dsn, $user, $password);
-
-$sql = 'SELECT * FROM employees WHERE state = 0';
-$employee = "";
-foreach ($dbh->query($sql) as $row) {
-    $employee .= "<option value='" . $row['id'];
-    $employee .= "'>" . $row['employee_name'] . "</option>";
-}
-
-
-
-$dbh = null;
-
-?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -50,11 +30,12 @@ $dbh = null;
             <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
             <form action="{{ route('journal.store')}}" method="POST">
                 @csrf
-                <input type="hidden" name="state" value="0">
-
                 <p>
-                    <label for="work_date">日付</label>
-                    <input type="date" name="work_date" value="{{old('work_date')}}" class="form-control" id="work_date">
+                    <input type="hidden" name="state" value="0">
+                </p>
+                <p>
+                    <label for="operation_date">日付</label>
+                    <input type="date" name="operation_date" value="{{old('operation_date')}}" class="form-control" id="operation_date">
                 </p>
                 <p>
                     <label for="author_id">作成者</label>
@@ -75,7 +56,7 @@ $dbh = null;
                 </p>
                 <p>
                     <label for="author_id">担当</label>
-                    <select class="form-select" name="operator_id" value="{{old('operator_id')}}" id="operator_id" multiple>>
+                    <select class="form-select" name="operator_id" value="{{old('operator_id')}}" id="operator_id" multiple>
                         @foreach($employees as $employee)
                         <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
                         @endforeach
@@ -83,8 +64,11 @@ $dbh = null;
                 </p>
 
                 <p>
-                    <label for="work_time">作業時間</label>
-                    <input type="number" min="0" max="24" name="work_time" value="{{old('work_time')}}" class="form-control" id="work_time" step="0.5">
+                    <label for="operation_hours">作業時間</label>
+                    <input type="number" min="0" max="24" name="operation_hours" value="{{old('operation_hours')}}" class="form-control" id="operation_hours" step="0.5">
+                </p>
+                <p>
+                    <input type="hidden" name="notes" value="">
                 </p>
                 <div class="button">
                     <input type="submit" value="登録する" class="btn btn-primary btn-lg">

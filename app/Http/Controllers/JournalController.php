@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Journal;
+use App\Models\JournalHeader;
 use App\Models\Employee;
 use App\Models\Process;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\MockObject\Rule\Parameters;
 
 class JournalController extends Controller
 {
@@ -24,8 +25,7 @@ class JournalController extends Controller
              . "GROUP BY "
              . " process_name "
              . "ORDER BY "
-             . " MIN(id) "
-      
+             . " MIN(id) "      
              ;
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));
@@ -55,7 +55,7 @@ class JournalController extends Controller
      */
     public function index()
     {
-        $journals = Journal::all();
+        $journals = JournalHeader::all();
         return view('journal.index', compact('journals'));
     }
 
@@ -79,9 +79,9 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        Journal::create($request->all());
-        return redirect()->route('journal.index')->with('success', '新規登録完了しました');
-
+        // JournalHeader::create($request->all());
+        // return redirect()->route('journal.index')->with('success', '新規登録完了しました');
+        JournalHeader::create($request->only(['state','operation_date', 'author_id']));
     }
 
     /**
@@ -92,7 +92,7 @@ class JournalController extends Controller
      */
     public function show($id)
     {
-        $report = Journal::find($id);
+        $report = JournalHeader::find($id);
         return view('journal.show', compact('report'));
     }
 
@@ -104,7 +104,7 @@ class JournalController extends Controller
      */
     public function edit($id)
     {
-        $report = Journal::find($id);
+        $report = JournalHeader::find($id);
         return view('journal.edit', compact('report'));
     }
 
@@ -122,7 +122,7 @@ class JournalController extends Controller
             'author_id' => $request->author_id,
             'content' => $request->content
         ];
-        Journal::where('id', $id)->update($update);
+        JournalHeader::where('id', $id)->update($update);
         return back()->with('success', '編集完了しました');
     }
 
@@ -134,7 +134,7 @@ class JournalController extends Controller
      */
     public function destroy($id)
     {
-        Journal::where('id', $id)->delete();
+        JournalHeader::where('id', $id)->delete();
         return redirect()->route('journal.index')->with('success', '削除完了しました');
     }
 }
