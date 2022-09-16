@@ -15,7 +15,7 @@ class JournalController extends Controller
     { 
         $sql = "SELECT "
              . " process_name "
-             . " , MIN(operation_hours) operation_hours  "
+             . " , SUM(operation_hours) operation_hours  "
              . " , MIN(employee_name) employee_name "
              . " , MIN(id) id "
              . "FROM "
@@ -82,6 +82,7 @@ class JournalController extends Controller
         // JournalHeader::create($request->all());
         // return redirect()->route('journal.index')->with('success', '新規登録完了しました');
         JournalHeader::create($request->only(['state','operation_date', 'author_id']));
+        return redirect()->route('journal.index')->with('success', '新規登録完了しました');
     }
 
     /**
