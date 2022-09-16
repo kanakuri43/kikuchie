@@ -5,13 +5,23 @@ $user = 'sa';
 $password = 'Sapassword1';
 
 $dbh = new PDO($dsn, $user, $password);
-$sql = 'SELECT * FROM employees WHERE state = 0';
-$str = "";
 
+$sql = 'SELECT * FROM employees WHERE state = 0';
+$employee = "";
 foreach ($dbh->query($sql) as $row) {
-    $str .= "<option value='" . $row['id'];
-    $str .= "'>" . $row['employee_name'] . "</option>";
+    $employee .= "<option value='" . $row['id'];
+    $employee .= "'>" . $row['employee_name'] . "</option>";
 }
+
+$sql = 'SELECT * FROM processes WHERE state = 0';
+$process = "";
+foreach ($dbh->query($sql) as $row) {
+    $process .= "<option value='" . $row['id'];
+    $process .= "'>" . $row['process_name'] . "</option>";
+}
+
+
+
 $dbh = null;
 
 ?>
@@ -55,14 +65,22 @@ $dbh = null;
                 </p>
                 <p>
                     <label for="author_id">作成者</label>
-                    <select class="form-select" name="author_id" value="{{old('author_id')}}" id="author_id">
-                        <?php echo $str; ?>
+                    <select class="form-select" name="employee_id" value="{{old('employee_id')}}" id="employee_id">
+                        <?php echo $employee; ?>
                     </select>
                 </p>
                 <p>
-                    <label for="content">内容</label>
-                    <input type="text" name="content" value="{{old('content')}}" class="form-control" id="content">
+                    <label for="content">作業</label>
+                    <select class="form-select" name="process_id" value="{{old('process_id')}}" id="process_id">
+                        <?php echo $process; ?>
+                    </select>
                 </p>
+                <label for="author_id">担当</label>
+                    <select class="form-select" name="operator_id" value="{{old('operator_id')}}" id="operator_id" multiple>
+                        <?php echo $employee; ?>
+                    </select>
+                </p>
+
                 <p>
                     <label for="work_time">作業時間</label>
                     <input type="number" min="0" max="24" name="work_time" value="{{old('work_time')}}" class="form-control" id="work_time">
