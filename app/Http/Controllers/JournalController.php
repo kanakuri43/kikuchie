@@ -19,7 +19,7 @@ class JournalController extends Controller
              . " process_name "
              . " , SUM(operation_hours) operation_hours  "
              . " , MIN(employee_name) employee_name "
-             . " , MIN(id) id "
+             . " , MIN(detail_id) detail_id "
              . "FROM "
              . " uv_daily_journal  "
              . "WHERE "
@@ -27,7 +27,7 @@ class JournalController extends Controller
              . "GROUP BY "
              . " process_name "
              . "ORDER BY "
-             . " MIN(id) "      
+             . " MIN(detail_id) "      
              ;
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));

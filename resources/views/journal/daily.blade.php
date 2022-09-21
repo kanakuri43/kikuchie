@@ -32,7 +32,7 @@
                 </tr>
                 @foreach ($journals as $journal)
                 <tr>
-                    <td><a href="{{ route('journal.show',$journal->id)}}">{{ $journal->process_name }}</a></td>
+                    <td><a href="{{ route('journal.show',$journal->detail_id)}}">{{ $journal->process_name }}</a></td>
                     <td align="center">{{ $journal->operation_hours }}</td>
                     <td>{{ $journal->employee_name }}</td>
                     <td></td>
