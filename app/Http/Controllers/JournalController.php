@@ -14,21 +14,32 @@ use PHPUnit\Framework\MockObject\Rule\Parameters;
 class JournalController extends Controller
 {
     public function daily($operation_date)
-    { 
-        $sql = "SELECT "
-             . " process_name "
-             . " , SUM(operation_hours) operation_hours  "
-             . " , MIN(employee_name) employee_name "
-             . " , MIN(detail_id) detail_id "
-             . "FROM "
-             . " uv_daily_journal  "
-             . "WHERE "
-             . " operation_date = '" .  $operation_date . "' " 
-             . "GROUP BY "
-             . " process_name "
-             . "ORDER BY "
-             . " MIN(detail_id) "      
-             ;
+    {
+        $sql = "     SELECT "
+            . "  MIN(v1.process_id) process_id "
+            . "  , MIN(v1.process_name) process_name "
+            . "  , MIN(v1.operation_hours) operation_hours "
+            . "  , MIN(v1.detail_id) detail_id "
+            . "  , STUFF(  "
+            . "    (  "
+            . "      SELECT "
+            . "        ', ' + employee_name  "
+            . "      FROM "
+            . "        uv_daily_journal v2  "
+            . "      WHERE "
+            . "        v2.detail_id = v1.detail_id  "
+            . "      ORDER BY "
+            . "        v2.detail_id FOR XML PATH ('') "
+            . "    ) , 1, 1, ''  "
+            . "  ) AS employee_name  "
+            . " FROM "
+            . "  uv_daily_journal v1  "
+            . " WHERE "
+            . " operation_date = '" .  $operation_date . "' "
+            . " GROUP BY "
+            . "  v1.detail_id "
+            . " ORDER BY "
+            . "  v1.detail_id ";
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));
     }
@@ -36,17 +47,16 @@ class JournalController extends Controller
     public function monthly($operation_month)
     {
         $sql = "SELECT "
-             . " operation_date "
-             . " , MIN(id) id "
-             . "FROM "
-             . " journal_headers "
-             . "WHERE "
-             . " FORMAT(operation_date, 'yyyy-MM') = '" . $operation_month . "'" 
-             . "GROUP BY "
-             . " operation_date "
-             . "ORDER BY "
-             . " operation_date "
-             ;
+            . " operation_date "
+            . " , MIN(id) id "
+            . "FROM "
+            . " journal_headers "
+            . "WHERE "
+            . " FORMAT(operation_date, 'yyyy-MM') = '" . $operation_month . "'"
+            . "GROUP BY "
+            . " operation_date "
+            . "ORDER BY "
+            . " operation_date ";
         $journals = DB::select($sql);
         return view('journal.monthly', compact('journals'));
     }
@@ -81,12 +91,12 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        $data = JournalHeader::create($request->only(['state','operation_date', 'author_id']));
+        $data = JournalHeader::create($request->only(['state', 'operation_date', 'author_id']));
         $request->merge(['journal_header_id' => $data->id]);
-        $data = JournalDetail::create($request->only(['state','journal_header_id', 'process_id', 'operation_hours']));
+        $data = JournalDetail::create($request->only(['state', 'journal_header_id', 'process_id', 'operation_hours']));
         $request->merge(['journal_detail_id' => $data->id]);
-        Operator::create($request->only(['state','journal_detail_id', 'employee_id']));
-        return redirect()->route('journal.monthly', date('Y-m'))->with('success', '新規登録完了しました');        
+        Operator::create($request->only(['state', 'journal_detail_id', 'employee_id']));
+        return redirect()->route('journal.monthly', date('Y-m'))->with('success', '新規登録完了しました');
     }
 
     /**
