@@ -95,7 +95,11 @@ class JournalController extends Controller
         $request->merge(['journal_header_id' => $data->id]);
         $data = JournalDetail::create($request->only(['state', 'journal_header_id', 'process_id', 'operation_hours']));
         $request->merge(['journal_detail_id' => $data->id]);
-        Operator::create($request->only(['state', 'journal_detail_id', 'employee_id']));
+        if(is_array($request->input('employee_id'))){
+            foreach($request->input('employee_id') as $e){
+                Operator::create($request->only(['state', 'journal_detail_id', $e]));
+            }
+        }
         return redirect()->route('journal.monthly', date('Y-m'))->with('success', '新規登録完了しました');
     }
 

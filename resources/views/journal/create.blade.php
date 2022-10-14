@@ -56,7 +56,7 @@
                 </p>
                 <p>
                     <label for="employee_id">担当</label>
-                    <select class="form-select" name="employee_id" value="{{old('employee_id')}}" id="employee_id" multiple>
+                    <select class="form-select" name="employee_id[]" value="{{old('employee_id')}}" id="employee_id" multiple>
                         @foreach($employees as $employee)
                         <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
                         @endforeach
