@@ -18,20 +18,57 @@
         <div class="mx-auto" style="width:400px;">
 
             <h1>日報編集</h1>
-            <p><a href="{{ route('journal.index')}}" class="text-decoration-none">一覧画面</a></p>
+            <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
             @endif
 
-            <form action="{{ route('journal.update',$report->id)}}" method="POST">
+            <form action="{{ route('journal.store')}}" method="POST">
                 @csrf
-                @method('PUT')
-                <p>日付：<input type="date" name="title" value="{{ $journal->work_date }}" class="form-control"></p>
-                <p>作成者：<input type="text" name="author" value="{{ $journal->author_id }}" class="form-control"></p>
-                <p>内容：<input type="text" name="author" value="{{ $journal->content }}" class="form-control"></p>
-                <input type="submit" value="編集する">
-            </form>
-        </div>
+                <p>
+                    <input type="hidden" name="state" value="0">
+                </p>
+                <p>
+                    <label for="operation_date">日付</label>
+                    <input type="date" name="operation_date" value="{{old('operation_date')}}" class="form-control" id="operation_date">
+                </p>
+                <p>
+                    <label for="author_id">作成者</label>
+                    <select class="form-select" name="author_id">
+                        @foreach($employees as $employee)
+                        <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endforeach
+                    </select>
+                </p>
+                <p>
+                    <label for="content">作業</label>
+                    <select class="form-select" name="process_id">
+                        @foreach($processes as $process)
+                        <option value="{{ $process->id }}"> {{ $process->process_name }}</option>
+                        @endforeach
+                    </select>
+
+                </p>
+                <p>
+                    <label for="employee_id">担当</label>
+                    <select class="form-select" name="employee_id[]" value="{{old('employee_id')}}" id="employee_id" multiple>
+                        @foreach($employees as $employee)
+                        <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endforeach
+                    </select>
+                </p>
+
+                <p>
+                    <label for="operation_hours">作業時間</label>
+                    <input type="number" min="0" max="24" name="operation_hours" value="{{old('operation_hours')}}" class="form-control" id="operation_hours" step="0.5">
+                </p>
+                <p>
+                    <input type="hidden" name="notes" value="">
+                </p>
+                <div class="button">
+                    <input type="submit" value="登録する" class="btn btn-primary btn-lg">
+                </div>
+            </form>        </div>
     </div>
 </body>

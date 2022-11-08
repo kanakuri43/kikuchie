@@ -55,6 +55,7 @@ class JournalController extends Controller
              . "  operation_date = '" .  $operation_date . "' "
              . "GROUP BY "
              . "  operation_date  "
+             . "  , process_id  "
              . "ORDER BY "
              . "  v1.detail_id ";
         $journals = DB::select($sql);
@@ -97,7 +98,7 @@ class JournalController extends Controller
     {
         $employees = Employee::all()->where('state', '0');
         $processes = Process::all()->where('state', '0');
-        return view('journal.create', compact('employees'), compact('processes'));
+        return view('journal.create', compact('employees', 'processes'));
     }
 
     /**
@@ -147,8 +148,10 @@ class JournalController extends Controller
      */
     public function edit($id)
     {
-        $report = JournalHeader::find($id);
-        return view('journal.edit', compact('report'));
+        $employees = Employee::all()->where('state', '0');
+        $processes = Process::all()->where('state', '0');
+        $journal = JournalDetail::find($id);
+        return view('journal.edit', compact('journal', 'employees', 'processes'));
     }
 
     /**
