@@ -27,7 +27,8 @@
         <div class="mx-auto" style="width:400px;">
 
             <h1>新規作成</h1>
-            <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
+            <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-house-door"></i></i></a></h3>
+
             <form action="{{ route('journal.store')}}" method="POST">
                 @csrf
                 <p>

@@ -17,7 +17,7 @@
     <div class="container">
         <div class="mx-auto" style="width:400px;">
             <h1>日報編集</h1>
-            <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
+            <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-house-door"></i></a></h3>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>

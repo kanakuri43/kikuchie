@@ -25,11 +25,20 @@
 <body>
     <div class="container">
         <div class="mx-auto" style="width:400px;">
-            
+
 
             <h1>日報一覧</h1>
             <p><input type="month" class="form-control" id="month" onChange="ex()"></p>
-            <p><a href="{{ route('journal.create') }}" class="text-decoration-none"><i class="bi bi-journal-plus"></i> 新規追加</a></p>
+            <table width="200">
+                <tr>
+                    <td>
+                        <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="新規作成"><i class="bi bi-journal-plus"></i></a></h3>
+                    </td>
+                    <td>
+                        <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="設定"><i class="bi bi-gear"></i></a></h3>
+                    </td>
+                </tr>
+            </table>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
