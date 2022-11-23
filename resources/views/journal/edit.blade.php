@@ -16,7 +16,6 @@
 <body>
     <div class="container">
         <div class="mx-auto" style="width:400px;">
-
             <h1>日報編集</h1>
             <p><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none">一覧画面</a></p>
 
@@ -31,7 +30,10 @@
                 </p>
                 <p>
                     <label for="operation_date">日付</label>
-                    <input type="date" name="operation_date" value="{{old('operation_date')}}" class="form-control" id="operation_date">
+                    @foreach ($journals as $journal)
+                    @break
+                    @endforeach
+                    <input type="date" name="operation_date" value="{{ $journal->operation_date }}" class="form-control" id="operation_date">
                 </p>
                 <p>
                     <label for="author_id">作成者</label>
@@ -61,7 +63,7 @@
 
                 <p>
                     <label for="operation_hours">作業時間</label>
-                    <input type="number" min="0" max="24" name="operation_hours" value="{{old('operation_hours')}}" class="form-control" id="operation_hours" step="0.5">
+                    <input type="number" min="0" max="24" name="operation_hours" value="{{ $journal->operation_hours }}" class="form-control" id="operation_hours" step="0.5">
                 </p>
                 <p>
                     <input type="hidden" name="notes" value="">
@@ -69,6 +71,7 @@
                 <div class="button">
                     <input type="submit" value="登録する" class="btn btn-primary btn-lg">
                 </div>
-            </form>        </div>
+            </form>
+        </div>
     </div>
 </body>

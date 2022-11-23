@@ -44,20 +44,20 @@ class JournalController extends Controller
 
         // MySQL ---------------------------------------------
         $sql = "SELECT "
-             . "  v1.process_id "
-             . "  , v1.process_name "
-             . "  , v1.operation_hours "
-             . "  , v1.detail_id "
-             . "  , GROUP_CONCAT(v1.employee_name) employee_name "
-             . "FROM "
-             . "  uv_daily_journal v1  "
-             . "WHERE "
-             . "  operation_date = '" .  $operation_date . "' "
-             . "GROUP BY "
-             . "  operation_date  "
-             . "  , process_id  "
-             . "ORDER BY "
-             . "  v1.detail_id ";
+            . "  v1.process_id "
+            . "  , v1.process_name "
+            . "  , v1.operation_hours "
+            . "  , v1.detail_id "
+            . "  , GROUP_CONCAT(v1.employee_name) employee_name "
+            . "FROM "
+            . "  uv_daily_journal v1  "
+            . "WHERE "
+            . "  operation_date = '" .  $operation_date . "' "
+            . "GROUP BY "
+            . "  operation_date  "
+            . "  , process_id  "
+            . "ORDER BY "
+            . "  v1.detail_id ";
         $journals = DB::select($sql);
         return view('journal.daily', compact('journals', 'operation_date'));
     }
@@ -116,7 +116,7 @@ class JournalController extends Controller
         $request->merge(['journal_detail_id' => $data->id]);
 
         if (is_array($request->input('employee_id'))) {
-            $operator =new Operator();
+            $operator = new Operator();
             foreach ($request->input('employee_id') as $e) {
                 $operator->create([
                     'state' => $request->input(['state']),
@@ -150,8 +150,16 @@ class JournalController extends Controller
     {
         $employees = Employee::all()->where('state', '0');
         $processes = Process::all()->where('state', '0');
-        $journal = JournalDetail::find($id);
-        return view('journal.edit', compact('journal', 'employees', 'processes'));
+
+        $sql = "SELECT  "
+            . " * "
+            . "FROM "
+            . " uv_daily_journal v  "
+            . "WHERE "
+            . " detail_id = '" .  $id . "' ";
+        $journals = DB::select($sql);
+// dd($journal);
+        return view('journal.edit', compact('journals', 'employees', 'processes'));
     }
 
     /**
