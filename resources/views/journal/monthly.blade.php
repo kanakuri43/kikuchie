@@ -32,7 +32,7 @@
             <table width="200">
                 <tr>
                     <td>
-                        <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="新規作成"><i class="bi bi-journal-plus"></i></a></h3>
+                        <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="新規作成"><i class="bi bi-pencil"></i></a></h3>
                     </td>
                     <td>
                         <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="設定"><i class="bi bi-gear"></i></a></h3>

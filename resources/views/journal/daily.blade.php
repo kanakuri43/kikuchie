@@ -18,7 +18,7 @@
 
 
             <h1>{{ $operation_date }} 日報</h1>
-            <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-house-door"></i></a></h3>
+            <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-calendar3"></i></a></h3>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
