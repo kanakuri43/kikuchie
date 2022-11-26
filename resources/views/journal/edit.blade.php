@@ -66,9 +66,13 @@
                     <label for="employee_id">担当</label>
                     <select class="form-select" name="employee_id[]" value="{{old('employee_id')}}" id="employee_id" multiple>
                         @foreach($employees as $employee)
+                        @if (in_array($employee->id, array_column($journals, "employee_id")))
+                        <option value="{{ $employee->id }}" selected="selected"> {{ $employee->employee_name }}</option>
+                        @else
                         <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endif
                         @endforeach
-                    </select>
+                    </select>                    
                 </p>
 
                 <p>

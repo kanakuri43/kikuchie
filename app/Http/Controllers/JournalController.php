@@ -158,7 +158,7 @@ class JournalController extends Controller
             . "WHERE "
             . " detail_id = '" .  $id . "' ";
         $journals = DB::select($sql);
-// dd($journal);
+// dd($journals);
         return view('journal.edit', compact('journals', 'employees', 'processes'));
     }
 
