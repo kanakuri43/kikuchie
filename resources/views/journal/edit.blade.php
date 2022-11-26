@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <div class="mx-auto" style="width:400px;">
-            <h1>日報編集</h1>
+            <!-- <h1>日報編集</h1> -->
             <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-calendar3"></i></a></h3>
 
             @if ($message = Session::get('success'))

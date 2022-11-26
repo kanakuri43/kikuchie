@@ -18,7 +18,16 @@
 
 
             <h1>{{ $operation_date }} 日報</h1>
-            <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-calendar3"></i></a></h3>
+            <table width="200">
+                <tr>
+                    <td>
+                        <h3><a href="{{ route('journal.create') }}" class="text-decoration-none" title="新規作成"><i class="bi bi-pencil"></i></a></h3>
+                    </td>
+                    <td>
+                    <h3><a href=" {{ route('journal.monthly', date('Y-m')) }}" class="text-decoration-none" title="ホーム"><i class="bi bi-calendar3"></i></a></h3>
+                    </td>
+                </tr>
+            </table>
 
             @if ($message = Session::get('success'))
             <p>{{ $message }}</p>
