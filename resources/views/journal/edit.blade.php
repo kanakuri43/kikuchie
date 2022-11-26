@@ -39,7 +39,11 @@
                     <label for="author_id">作成者</label>
                     <select class="form-select" name="author_id">
                         @foreach($employees as $employee)
+                        @if ($employee->id === $journal->author_id)
+                        <option value="{{ $employee->id }}" selected="selected"> {{ $employee->employee_name }}</option>
+                        @else
                         <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endif
                         @endforeach
                     </select>
                 </p>
@@ -68,10 +72,8 @@
                 <p>
                     <input type="hidden" name="notes" value="">
                 </p>
-                <div class="button">
-                    <input type="submit" value="登録する" class="btn btn-primary btn-lg">
-                    <button type="button" onClick="history.back()" class="btn btn-outline-secondary btn-lg">戻る</button>
-                </div>
+                <input type="submit" value="登録する" class="btn btn-primary btn-lg">
+                <button type="button" onClick="history.back()" class="btn btn-outline-secondary btn-lg">戻る</button>
             </form>
         </div>
     </div>
