@@ -25,14 +25,16 @@
 
             <form action="{{ route('journal.store')}}" method="POST">
                 @csrf
+                @foreach ($journals as $journal)
+                @break
+                @endforeach
                 <p>
                     <input type="hidden" name="state" value="0">
+                    <input type="hidden" name="header_id" value="{{ $journal->header_id }}">
+                    <input type="hidden" name="detail_id" value="{{ $journal->detail_id }}">
                 </p>
                 <p>
                     <label for="operation_date">日付</label>
-                    @foreach ($journals as $journal)
-                    @break
-                    @endforeach
                     <input type="date" name="operation_date" value="{{ $journal->operation_date }}" class="form-control" id="operation_date">
                 </p>
                 <p>
