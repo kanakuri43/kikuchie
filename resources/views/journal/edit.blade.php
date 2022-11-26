@@ -51,7 +51,11 @@
                     <label for="content">作業</label>
                     <select class="form-select" name="process_id">
                         @foreach($processes as $process)
+                        @if ($process->id === $journal->process_id)
+                        <option value="{{ $process->id }}" selected="selected"> {{ $process->process_name }}</option>
+                        @else
                         <option value="{{ $process->id }}"> {{ $process->process_name }}</option>
+                        @endif
                         @endforeach
                     </select>
 
