@@ -70,6 +70,7 @@
                 </p>
                 <div class="button">
                     <input type="submit" value="登録する" class="btn btn-primary btn-lg">
+                    <button type="button" onClick="history.back()" class="btn btn-outline-secondary btn-lg">戻る</button>
                 </div>
             </form>
         </div>
