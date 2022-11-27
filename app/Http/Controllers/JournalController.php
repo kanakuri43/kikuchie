@@ -55,7 +55,7 @@ class JournalController extends Controller
             . "  operation_date = '" .  $operation_date . "' "
             . "GROUP BY "
             . "  operation_date  "
-            . "  , process_id  "
+            . "  , detail_id  "
             . "ORDER BY "
             . "  v1.detail_id ";
         $journals = DB::select($sql);
@@ -158,7 +158,7 @@ class JournalController extends Controller
             . "WHERE "
             . " detail_id = '" .  $id . "' ";
         $journals = DB::select($sql);
-// dd($journals);
+        // dd($journals);
         return view('journal.edit', compact('journals', 'employees', 'processes'));
     }
 
@@ -171,6 +171,7 @@ class JournalController extends Controller
      */
     public function update(Request $request, $id)
     {
+// dd($request);
         $update = [
             'work_date' => $request->work_date,
             'author_id' => $request->author_id,
