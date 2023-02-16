@@ -76,6 +76,9 @@
                     <input type="number" min="0" max="24" name="operation_hours" value="{{old('operation_hours')}}" class="form-control" id="operation_hours" step="0.5">
                 </p>
                 <p>
+                    <label for="operation_hours">備考</label>
+                </p>
+                <p>
                     <input type="hidden" name="notes" value="">
                 </p>
                 <div class="form-group row mb-0">
