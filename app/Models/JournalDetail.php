@@ -11,6 +11,7 @@ class JournalDetail extends Model
         'state',
         'journal_header_id',
         'process_id',
+        'used_machine_id',
         'operation_hours',
     ];
 }

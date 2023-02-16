@@ -152,7 +152,7 @@ class JournalController extends Controller
     {
         $employees = Employee::all()->where('state', '0');
         $processes = Process::all()->where('state', '0');
-
+        $machines = Machines::all()->where('state', '0');
         $sql = "SELECT  "
             . " * "
             . "FROM "
@@ -161,7 +161,7 @@ class JournalController extends Controller
             . " detail_id = '" .  $id . "' ";
         $journals = DB::select($sql);
         // dd($journals);
-        return view('journal.edit', compact('journals', 'employees', 'processes'));
+        return view('journal.edit', compact('journals', 'employees', 'processes', 'machines'));
     }
 
     /**

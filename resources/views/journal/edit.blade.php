@@ -75,10 +75,27 @@
                         @endforeach
                     </select>
                 </p>
+                <p>
+                    <label for="content">使用機械</label>
+                    <select class="form-select" name="machine_id">
+                        @foreach($machines as $machine)
+                        @if (in_array($machine->id, array_column($journals, "machine_id")))
+                        <option value="{{ $machine->id }}" selected="selected"> {{ $machine->machine_name }}</option>
+                        @else
+                        <option value="{{ $machine->id }}"> {{ $machine->machine_name }}</option>
+                        @endif
+                        @endforeach
 
+                        
+                    </select>
+                </p>
                 <p>
                     <label for="operation_hours">作業時間</label>
                     <input type="number" min="0" max="24" name="operation_hours" value="{{ $journal->operation_hours }}" class="form-control" id="operation_hours" step="0.5">
+                </p>
+                <p>
+                    <label for="operation_hours">備考</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                 </p>
                 <p>
                     <input type="hidden" name="notes" value="">
