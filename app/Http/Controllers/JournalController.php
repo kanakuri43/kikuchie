@@ -8,6 +8,7 @@ use App\Models\JournalDetail;
 use App\Models\Employee;
 use App\Models\Operator;
 use App\Models\Process;
+use App\Models\Machines;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\MockObject\Rule\Parameters;
 
@@ -98,7 +99,8 @@ class JournalController extends Controller
     {
         $employees = Employee::all()->where('state', '0');
         $processes = Process::all()->where('state', '0');
-        return view('journal.create', compact('employees', 'processes'));
+        $machines = Machines::all()->where('state', '0');
+        return view('journal.create', compact('employees', 'processes', 'machines'));
     }
 
     /**

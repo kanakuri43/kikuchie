@@ -53,13 +53,20 @@
                         <option value="{{ $process->id }}"> {{ $process->process_name }}</option>
                         @endforeach
                     </select>
-
                 </p>
                 <p>
                     <label for="employee_id">担当</label>
                     <select class="form-select" name="employee_id[]" value="{{old('employee_id')}}" id="employee_id" multiple>
                         @foreach($employees as $employee)
                         <option value="{{ $employee->id }}"> {{ $employee->employee_name }}</option>
+                        @endforeach
+                    </select>
+                </p>
+                <p>
+                    <label for="content">使用機械</label>
+                    <select class="form-select" name="machine_id">
+                        @foreach($machines as $machine)
+                        <option value="{{ $machine->id }}"> {{ $machine->machine_name }}</option>
                         @endforeach
                     </select>
                 </p>
